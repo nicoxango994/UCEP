@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Subir Noticia</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <!-- TinyMCE -->
+    <script src="https://cdn.tiny.cloud/1/2bcr6u16kl8hxxq83sijvi7e6v7wsg1qf9kyhm70c8qkfky0/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: '#contentEditor',
+            plugins: 'image link media',
+            toolbar: 'undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media',
+            height: 300,
+            menubar: false
+        });
+    </script>
+</head>
+<body>
+    <h1>Subir Noticia</h1>
+    
+    <form th:action="@{/notice/upload}" th:object="${notice}" method="post" enctype="multipart/form-data">
+        <div>
+            <label for="title">Título:</label>
+            <input type="text" id="title" th:field="*{title}" required />
+        </div>
+        
+        <div>
+            <label for="frontPage">Imagen de Portada:</label>
+            <input type="file" id="frontPage" name="frontPage" accept="image/*" required />
+        </div>
+
+        <div>
+            <label for="contentEditor">Contenido de la Noticia:</label>
+            <textarea id="contentEditor" name="content"></textarea>
+        </div>
+
+        <div>
+            <button type="submit">Subir Noticia</button>
+        </div>
+    </form>
+</body>
+</html>

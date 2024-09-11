@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link rel="stylesheet" th:href="@{/css/styles.css}" />
+        <title>Página Responsiva</title>
+        <style>
+            /* width */
+            ::-webkit-scrollbar {
+                width: 10px;
+            }
+
+            /* Track */
+            ::-webkit-scrollbar-track {
+                background: rgb(23, 23, 23);
+            }
+
+            /* Handle */
+            ::-webkit-scrollbar-thumb {
+                background: #505242;
+            }
+
+            /* Handle on hover */
+            ::-webkit-scrollbar-thumb:hover {
+                background:#6d705e;
+            }
+
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            header, nav {
+                width: 90%;
+                margin: 0 auto;
+            }
+
+            header img {
+                max-width: 100%;
+                height: auto;
+                display: block;
+                margin: 0 auto; /* Centrará la imagen horizontalmente */
+            }
+
+            .nav-container {
+                position: fixed;
+                top: 10px;
+                right: 10px;
+                z-index: 1000;
+            }
+
+            nav {
+                background-color: rgba(128, 128, 128, 0.7); /* Gris transparente */
+                border-radius: 15px;
+                padding: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                transition: all 0.3s ease;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav img {
+                max-width: 100px;
+                border-radius: 50%;
+                margin-bottom: 10px;
+            }
+
+            nav ul {
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-around;
+            }
+
+            nav ul li {
+                margin: 5px 0;
+            }
+
+            nav ul li a {
+                text-decoration: none;
+                color: black;
+                padding: 10px 20px;
+                border-radius: 10px;
+                display: block;
+                transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            }
+
+            nav ul li a:hover {
+                background-color: rgba(128, 128, 128, 0.9); /* Fondo gris más oscuro al pasar el ratón */
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }
+
+            .carousel {
+                position: relative;
+                max-width: 100%;
+                margin: 20px auto;
+                overflow: hidden;
+                height: 300%;
+            }
+
+            .container, .news-container {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .item, .news-item {
+                flex: 1 1 100%;
+                padding: 10px;
+                text-align: center;
+                max-width: 500px; /* Añadir una anchura máxima para los elementos */
+            }
+
+            @media (min-width: 600px) {
+                header img {
+                    max-width: 50%; /* Reduce el tamaño de la imagen en móviles */
+                    align-content: right;
+                    border-radius: 50%;
+                }
+
+                .item, .news-item {
+                    flex: 1 1 48%;
+                }
+
+                nav ul {
+                    flex-direction: row; /* Hace que los elementos hijos se apilen en fila */
+                }
+            }
+
+            @media (min-width: 900px) {
+                .item, .news-item {
+                    flex: 1 1 30%;
+                }
+
+                header img {
+                    max-width: 50%; /* Reduce el tamaño de la imagen en móviles */
+                    align-content: right;
+                }
+
+                .carousel {
+                    position: relative;
+                    max-width: 100%;
+                    margin: 20px auto;
+                    overflow: hidden;
+                    height: 100%;
+                }
+            }
+
+            .carousel img {
+                width: 100%;
+                height: auto;
+                display: block;
+            }
+
+            .carousel-inner {
+                display: flex;
+                transition: transform 0.5s ease;
+                height: 100%;
+            }
+
+            .carousel-inner img {
+                flex: 1 0 100%;
+                height: 100%;
+            }
+
+            .carousel-controls {
+                position: absolute;
+                top: 50%;
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                transform: translateY(-50%);
+            }
+
+            .carousel-controls button {
+                background: rgba(0, 0, 0, 0.5);
+                border: none;
+                color: white;
+                padding: 10px;
+                cursor: pointer;
+            }
+
+            .subscribe-button {
+                display: block;
+                width: 300px;
+                padding: 20px;
+                margin: 8% auto;
+                text-align: center;
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            .subscribe-button:hover {
+                background-color: #45a049;
+            }
+
+            .grid-container {
+                grid-template-columns: repeat(4, 1fr); /* 4 columnas en pantallas grandes */
+            }
+
+            footer {
+                background-color: #f1f1f1;
+                text-align: center;
+                padding: 10px 0;
+                margin-top: 20px;
+            }
+
+            .social-icons {
+                margin: 3%;
+                display: flex;
+                justify-content: center;
+                gap: 50px;
+            }
+
+            .social-icons a {
+                color: rgb(0, 0, 0);
+                font-size: 24px;
+                transition: color 0.3s ease;
+            }
+
+            .social-icons a:hover {
+                color: #ddd;
+            }
+
+            .card {
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                overflow: hidden;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                background-color: #fff;
+            }
+
+            .card img {
+                width: 100%;
+                height: 150px;
+                object-fit: cover;
+            }
+
+            .card-body {
+                padding: 10px;
+            }
+
+            .card-title {
+                font-size: 1.2em;
+                margin: 0;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="social-icons">
+            <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        <header>
+            <img src="/img/logo1.jpg" alt="Logo">
+            <h1>Página Responsiva</h1>
+        </header>
+
+        <nav>
+            <img src="https://via.placeholder.com/100" alt="Logo">
+            <ul>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Sobre Nosotros</a></li>
+                <li><a href="#">Servicios</a></li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <div class="carousel" data-aos="fade-up">
+                <div class="carousel-inner">
+                    <img src="https://via.placeholder.com/800x300" alt="Slide 1">
+                    <img src="https://via.placeholder.com/800x300" alt="Slide 2">
+                    <img src="https://via.placeholder.com/800x300" alt="Slide 3">
+                </div>
+                <div class="carousel-controls">
+                    <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+                    <button class="next" onclick="moveSlide(1)">&#10095;</button>
+                </div>
+            </div>
+
+            <button class="subscribe-button" data-aos="fade-up">Suscribirse</button>
+
+            <!-- Cuadrícula de noticias -->
+            <section class="news-container" data-aos="fade-up">
+                <div class="news-item card" th:each="notice : ${notices}">
+                    <img th:src="@{/images/{id}(id=${notice.frontPage.id})}" alt="Imagen de portada">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${notice.title}">Título de la Noticia</h5>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 Mi Página Responsiva. Todos los derechos reservados.</p>
+        </footer>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+        <script>
+                        AOS.init();
+
+                        let slideIndex = 0;
+                        const slides = document.querySelectorAll('.carousel-inner img');
+
+                        function moveSlide(n) {
+                            slideIndex += n;
+                            if (slideIndex >= slides.length)
+                                slideIndex = 0;
+                            if (slideIndex < 0)
+                                slideIndex = slides.length - 1;
+                            document.querySelector('.carousel-inner').style.transform = `translateX(-${slideIndex * 100}%)`;
+                        }
+
+                        setInterval(() => {
+                            moveSlide(1);
+                        }, 3000); // Cambia de imagen cada 3 segundos
+        </script>
+    </body>
+</html>

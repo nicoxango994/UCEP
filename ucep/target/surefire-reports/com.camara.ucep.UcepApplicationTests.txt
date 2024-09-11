@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.camara.ucep.UcepApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.047 s - in com.camara.ucep.UcepApplicationTests

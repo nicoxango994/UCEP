@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Subir Noticia</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <!-- TinyMCE -->
+    <script src="https://cdn.tiny.cloud/1/2bcr6u16kl8hxxq83sijvi7e6v7wsg1qf9kyhm70c8qkfky0/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: '#contentEditor',
+            plugins: 'image link media',
+            toolbar: 'undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media',
+            height: 300,
+            menubar: false
+        });
+    </script>
+</head>
+<body>
+    <!-- Include del nav como fragmento -->
+    <th:block th:replace="fragments/nav :: nav"></th:block>
+
+    <div class="container">
+        <h1 class="text-center">Subir Noticia</h1>
+        
+        <form th:action="@{/notice/upload}" th:object="${notice}" method="post" enctype="multipart/form-data" class="form-group">
+            <div class="form-group">
+                <label for="title">Título:</label>
+                <input type="text" id="title" th:field="*{title}" class="form-control" required />
+            </div>
+            
+            <div class="form-group">
+                <label for="frontPage">Imagen de Portada:</label>
+                <input type="file" id="frontPage" name="frontPage" class="form-control-file" accept="image/*" required />
+            </div>
+
+            <div class="form-group">
+                <label for="contentEditor">Contenido de la Noticia:</label>
+                <textarea id="contentEditor" name="content" class="form-control"></textarea>
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary mt-3">Subir Noticia</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

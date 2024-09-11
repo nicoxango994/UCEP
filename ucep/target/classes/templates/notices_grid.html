@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Noticias</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <style>
+        /* Estilos básicos para la cuadrícula y las tarjetas */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* Tres columnas iguales */
+            gap: 20px; /* Espacio entre las tarjetas */
+            padding: 20px;
+        }
+
+        .card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px; /* Ajusta la altura de las imágenes */
+            object-fit: cover;
+        }
+
+        .card-title {
+            font-size: 1.2em;
+            padding: 15px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Últimas Noticias</h1>
+
+    <div class="grid-container">
+        <div th:each="notice : ${notices}" class="card">
+            <img th:src="@{/images/{id}(id=${notice.frontPage.id})}" alt="Imagen de portada">
+            <div class="card-body">
+                <h5 class="card-title" th:text="${notice.title}">Título de la Noticia</h5>
+                
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
